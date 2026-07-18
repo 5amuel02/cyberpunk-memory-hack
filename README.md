@@ -1,5 +1,7 @@
 # Hacker Training Hub // CYBERSEC SIMULATOR
 
+🎮 **[PLAY LIVE DEMO HERE / MAINKAN SEKARANG](https://5amuel02.github.io/cyberpunk-memory-hack/)** 🎮
+
 Platform mini-game interaktif berbasis web untuk melatih kemampuan komputasi dasar dengan balutan tema visual *Cyberpunk Hacker*. Sistem ini dibangun menggunakan arsitektur Single Page Application (SPA) murni dengan HTML, CSS, dan JavaScript tanpa framework tambahan.
 
 ## 🚀 Modul Pelatihan Saat Ini
