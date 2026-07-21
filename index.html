@@ -236,12 +236,13 @@
                     </div>
                 </div>
             </header>
-            <main style="flex:1; position: relative; overflow: hidden; background: #000; border: 1px solid var(--neon-magenta); border-radius: 5px;">
+            <main id="fw-main-area" style="flex:1; position: relative; overflow: hidden; background: #000; border: 1px solid var(--neon-magenta); border-radius: 5px; cursor: pointer;">
                 <canvas id="fw-canvas" style="display: block;"></canvas>
                 <div style="position: absolute; bottom: 0; width: 100%; height: 5px; background: var(--neon-red); box-shadow: 0 0 15px var(--neon-red);"></div>
                 <div style="position: absolute; bottom: 15px; width: 100%; text-align: center;">
                     <span id="fw-typed" style="font-size: 1.5rem; color: var(--neon-cyan); background: rgba(0,24,30,0.9); padding: 5px 20px; border-radius: 5px; border: 1px solid var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); font-weight: bold; letter-spacing: 2px;"></span>
                 </div>
+                <input type="text" id="fw-mobile-input" style="position: absolute; top: -100px; left: -100px; opacity: 0; z-index: -1;" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             </main>
             <div class="overlay" id="fw-overlay">
                 <div class="overlay-box">

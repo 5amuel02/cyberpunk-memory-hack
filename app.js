@@ -1142,6 +1142,12 @@ function initFirewallGame() {
     
     document.getElementById('fw-overlay').classList.add('hidden');
     
+    const fwInput = document.getElementById('fw-mobile-input');
+    if(fwInput) {
+        fwInput.value = "";
+        fwInput.focus();
+    }
+    
     fwLevel = 1;
     fwIntegrity = 100;
     fwScore = 0;
@@ -1270,16 +1276,14 @@ function endFirewallGame() {
 
 document.getElementById('fw-start-btn').onclick = initFirewallGame;
 
-// Keyboard Handling for Firewall
+// Keyboard Handling for Firewall (Desktop)
 window.addEventListener('keydown', (e) => {
     const fwScreen = document.getElementById('screen-firewall');
     const overlay = document.getElementById('fw-overlay');
     
     if (fwScreen && fwScreen.classList.contains('active') && overlay && overlay.classList.contains('hidden') && fwStarted) {
         if (e.key === 'Backspace') {
-            fwTyped = fwTyped.slice(0, -1);
-            document.getElementById('fw-typed').innerText = fwTyped || "_";
-            sfx.click();
+            processFirewallBackspace();
             e.preventDefault();
             return;
         }
@@ -1291,35 +1295,68 @@ window.addEventListener('keydown', (e) => {
         }
         
         if (e.key.length === 1 && e.key.match(/[a-zA-Z]/)) {
-            let nextChar = e.key.toLowerCase();
-            let potentialType = fwTyped + nextChar;
-            
-            let isValid = fwWords.some(w => w.text.startsWith(potentialType));
-            
-            if (isValid) {
-                fwTyped = potentialType;
-                sfx.click();
-                
-                let completedIdx = fwWords.findIndex(w => w.text === fwTyped);
-                if (completedIdx !== -1) {
-                    fwWords.splice(completedIdx, 1);
-                    fwTyped = "";
-                    sfx.match(); 
-                    
-                    fwScore += 10;
-                    if (fwScore % 100 === 0) {
-                        fwLevel++;
-                        document.getElementById('fw-level').innerText = fwLevel;
-                        sfx.winLevel();
-                        showFlashMessage(`SPEED INCREASED`, 'show-level');
-                    }
-                }
-            } else {
-                sfx.error();
-            }
-            
-            document.getElementById('fw-typed').innerText = fwTyped || "_";
+            processFirewallChar(e.key.toLowerCase());
             e.preventDefault();
         }
     }
 });
+
+// Mobile Keyboard Handling
+const fwMobileInput = document.getElementById('fw-mobile-input');
+const fwMainArea = document.getElementById('fw-main-area');
+
+if (fwMainArea) {
+    fwMainArea.addEventListener('click', () => {
+        if (fwStarted) fwMobileInput.focus();
+    });
+}
+
+if (fwMobileInput) {
+    fwMobileInput.addEventListener('input', function(e) {
+        const val = this.value;
+        if (val.length < fwTyped.length) {
+            processFirewallBackspace();
+        } else {
+            const nextChar = val.slice(-1).toLowerCase();
+            if (nextChar.match(/[a-z]/)) {
+                processFirewallChar(nextChar);
+            }
+        }
+        this.value = fwTyped; // force sync
+    });
+}
+
+function processFirewallBackspace() {
+    fwTyped = fwTyped.slice(0, -1);
+    document.getElementById('fw-typed').innerText = fwTyped || "_";
+    sfx.click();
+}
+
+function processFirewallChar(nextChar) {
+    let potentialType = fwTyped + nextChar;
+    let isValid = fwWords.some(w => w.text.startsWith(potentialType));
+    
+    if (isValid) {
+        fwTyped = potentialType;
+        sfx.click();
+        
+        let completedIdx = fwWords.findIndex(w => w.text === fwTyped);
+        if (completedIdx !== -1) {
+            fwWords.splice(completedIdx, 1);
+            fwTyped = "";
+            sfx.match(); 
+            
+            fwScore += 10;
+            if (fwScore % 100 === 0) {
+                fwLevel++;
+                document.getElementById('fw-level').innerText = fwLevel;
+                sfx.winLevel();
+                showFlashMessage(`SPEED INCREASED`, 'show-level');
+            }
+        }
+    } else {
+        sfx.error();
+    }
+    
+    document.getElementById('fw-typed').innerText = fwTyped || "_";
+}
