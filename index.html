@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
     <div class="scanlines"></div>
@@ -242,7 +242,7 @@
                 <div style="position: absolute; bottom: 15px; width: 100%; text-align: center;">
                     <span id="fw-typed" style="font-size: 1.5rem; color: var(--neon-cyan); background: rgba(0,24,30,0.9); padding: 5px 20px; border-radius: 5px; border: 1px solid var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); font-weight: bold; letter-spacing: 2px;"></span>
                 </div>
-                <input type="text" id="fw-mobile-input" style="position: absolute; top: -100px; left: -100px; opacity: 0; z-index: -1;" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                <input type="text" id="fw-mobile-input" style="position: absolute; left: 50%; bottom: 10%; width: 1px; height: 1px; opacity: 0.01; border: none; padding: 0;" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
             </main>
             <div class="overlay" id="fw-overlay">
                 <div class="overlay-box">
@@ -259,6 +259,6 @@
     <!-- Notification Toast -->
     <div class="flash-msg" id="flash-msg"></div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2"></script>
 </body>
 </html>
